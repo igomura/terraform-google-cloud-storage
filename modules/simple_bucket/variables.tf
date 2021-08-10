@@ -65,6 +65,7 @@ variable "iam_members" {
   type = list(object({
     role   = string
     member = string
+    condition = list(map(string))
   }))
   default = []
 }

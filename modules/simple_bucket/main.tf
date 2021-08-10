@@ -75,4 +75,13 @@ resource "google_storage_bucket_iam_member" "members" {
   bucket = google_storage_bucket.bucket.name
   role   = each.value.role
   member = each.value.member
+
+  dynamic "condition" {
+    for_each = each.value.condition == null ? [] : each.value.condition
+    content {
+      title       = each.value.condition[0].title
+      description = each.value.condition[0].description
+      expression  = each.value.condition[0].expression
+    }
+  }
 }
